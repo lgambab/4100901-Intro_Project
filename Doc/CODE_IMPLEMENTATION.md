@@ -100,7 +100,34 @@ El main contiene el bucle infinito (while(1)) donde se ejecuta la lógica princi
 Dentro de main(), después de las llamadas MX_..._Init() pero antes del while(1), debemos habilitar la recepción UART por primera vez:
 
 ```c
-/* Initialize all configured peripherals */
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
@@ -110,16 +137,12 @@ Dentro de main(), después de las llamadas MX_..._Init() pero antes del while(1)
   // Mensaje de bienvenida por UART
   char *welcome_msg = "Sistema de Control Basico - Listo\r\n";
   HAL_UART_Transmit(&huart2, (uint8_t*)welcome_msg, strlen(welcome_msg), 100);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
     // ---- Heartbeat LED ----
     static uint32_t last_heartbeat_time = 0;
     if (HAL_GetTick() - last_heartbeat_time >= 500) // Cada 500 ms
@@ -160,24 +183,25 @@ Dentro de main(), después de las llamadas MX_..._Init() pero antes del while(1)
       // 3. Resetear el tiempo de apagado a 0 (para no volver a apagarlo)
       led_ext_off_time = 0;
     }
+    /* USER CODE END WHILE */
 
-  } // Fin del while(1)
+    /* USER CODE BEGIN 3 */
+  }
   /* USER CODE END 3 */
+}
 ```
 
 ## 5. Compilar, Cargar y Depurar
 
 -  **Nota:** Si tienes problemas compilando, revisa esta [guía para solucionar el problema de CMake](CMAKE_FIX.md).
 
-- **Construir (Build)**: Usa la interfaz de la extensión STM32 en VS Code para construir el proyecto. Busca un icono de "martillo" o una opción en la paleta de comandos (Ctrl+Shift+P -> STM32: Build Project). Revisa la salida en la terminal de VS Code por errores.
+- **Construir (Build)**: Usa la interfaz de VS Code para construir el proyecto. Presiona el icono de "Build" o "Version de compilación" en la parte inferior. Revisa la salida en la terminal de VS Code por errores.
 
 - **Conectar la Placa**: Conecta tu Nucleo-L476RG al PC mediante el cable USB. Debería aparecer como un dispositivo ST-Link.
 
-- **Cargar (Flash)**: Usa la opción de la extensión STM32 para cargar el firmware compilado en la placa (icono de "flecha hacia abajo" o STM32: Download Project to Target).
+- **Programar y depurar (Run & Debug)**: Inicia una sesión de depuración (icono de "play con insecto"). Esto te permite ejecutar el código paso a paso, ver variables, etc.
 
-- **Depurar (Opcional pero recomendado)**: Inicia una sesión de depuración (icono de "play con bicho" o STM32: Start Debug Session). Esto te permite ejecutar el código paso a paso, ver variables, etc.
-
-- **Conectar Monitor Serie**: Abre un monitor serie (como el integrado en VS Code, o herramientas como PuTTY, Tera Term, tio) conectado al puerto COM asociado con el ST-Link de tu placa Nucleo. Configúralo a 115200 baudios, 8N1.
+- **Conectar Monitor Serie**: Abre un monitor serie (como el integrado en VS Code "Serial Monitor") conectado al puerto COM asociado con el ST-Link de tu placa Nucleo. Configúralo a 115200 baudios, 8N1.
 
 En VS Code, puedes buscar Serial Monitor en las extensiones e instalar uno. Luego, conéctalo al puerto COM correcto.
 
@@ -185,7 +209,7 @@ En VS Code, puedes buscar Serial Monitor en las extensiones e instalar uno. Lueg
 
 - Deberías ver el LED LD2 (verde) parpadeando cada medio segundo.
 
-- En el monitor serie, deberías ver el mensaje "Sistema de Control Basico - Listo".
+- En el monitor serie, deberías ver el mensaje "Sistema de Control Basico - Listo" cuando presiones el boton negro de la placa.
 
 - Escribe algo en el monitor serie; deberías ver los caracteres que escribes aparecer de vuelta (eco).
 
@@ -214,10 +238,11 @@ En VS Code, puedes buscar Serial Monitor en las extensiones e instalar uno. Lueg
 
 ¡Ahora es tu turno! Intenta modificar el código:
 
-- Cambia el tiempo que el LED externo permanece encendido.
 - Haz que el LED LD2 parpadee más rápido o más lento.
+- Cambia el tiempo que el LED externo permanece encendido.
 - Envía un mensaje diferente por UART cuando se presiona el botón.
-- Intenta controlar ambos LEDs (LD2 y el externo) con el botón.
+- Cambia la letra que devuelve la placa cuando envias algo desde el PC.
+- Crea una nota de aplicación del programa.
 
 ¡Felicidades! Has completado tu primera práctica con STM32. Has configurado periféricos, manejado interrupciones y creado una aplicación básica interactiva. 
 

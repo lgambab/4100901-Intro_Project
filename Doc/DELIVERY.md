@@ -16,11 +16,11 @@ git config --global user.email "tuemail@dominio.com"
 **2. Añade tus cambios (stage)**:
 - En VS Code, presiona `Ctrl+Shift+G` para abrir el panel de **Control de versiones**.
 - Verás una lista de cambios realizados.
-- Haz clic en el ícono `+` junto a cada archivo para seleccionarlos, o haz clic en `+` junto a "Cambios" para seleccionarlos todos.
+- Haz clic en `+` junto a "Changes" o "Cambios" para seleccionar todos los archivos.
 
 **3. Haz commit de tus cambios:**
 - En la parte superior del panel de control de versiones, escribe un mensaje claro y breve que explique tus cambios (ej. "Implementado driver UART").
-- Haz clic en la marca de verificación (✔️) o presiona `Ctrl+Enter` para hacer commit.
+- Haz clic en la marca de verificación (✔️ Commit) o presiona `Ctrl+Enter` para hacer el commit.
 
 **4. Sube (push) tus cambios a GitHub:**
 - Luego de hacer commit, haz clic en los tres puntos (`...`) en la parte superior del panel de control de versiones.
