@@ -93,11 +93,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 ## 4. Código Principal (main function)
 
-El main contiene el bucle infinito (while(1)) donde se ejecuta la lógica principal de la aplicación.
-
-### 4.1 Inicializaciones Adicionales
-
-Dentro de main(), después de las llamadas MX_..._Init() pero antes del while(1), debemos habilitar la recepción UART por primera vez:
+El main es el punto de entrada del programa y contiene el bucle infinito (while(1)) donde se ejecuta la lógica principal de la aplicación.
 
 ```c
 /**
@@ -193,9 +189,9 @@ int main(void)
 
 ## 5. Compilar, Cargar y Depurar
 
--  **Nota:** Si tienes problemas compilando, revisa esta [guía para solucionar el problema de CMake](CMAKE_FIX.md).
-
 - **Construir (Build)**: Usa la interfaz de VS Code para construir el proyecto. Presiona el icono de "Build" o "Version de compilación" en la parte inferior. Revisa la salida en la terminal de VS Code por errores.
+
+**Nota:** Si tienes problemas compilando, revisa esta [guía para solucionar el problema de CMake](CMAKE_FIX.md).
 
 - **Conectar la Placa**: Conecta tu Nucleo-L476RG al PC mediante el cable USB. Debería aparecer como un dispositivo ST-Link.
 
