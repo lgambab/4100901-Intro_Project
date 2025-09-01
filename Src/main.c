@@ -75,7 +75,15 @@ void SystemClock_Config(void);
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART2)
-  {
+  {  // --- Transformación del carácter recibido ---
+    if (rx_data >= 'a' && rx_data <= 'z') // Si es minúscula
+    {
+      rx_data = rx_data - 32; // Convertir a mayúscula (ASCII)
+    }
+    else if (rx_data >= 'A' && rx_data <= 'Z') // Si es mayúscula
+    {
+      rx_data = rx_data + 32; // Convertir a minúscula (ASCII)
+    }
     // Hacemos eco del caracter recibido
     HAL_UART_Transmit(&huart2, &rx_data, 1, 10); // Enviar el byte recibido de vuelta
 
